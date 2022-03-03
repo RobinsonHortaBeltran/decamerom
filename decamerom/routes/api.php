@@ -20,5 +20,9 @@ Route::get('/habitaciones',[App\Http\Controllers\IndexController::class,'get_hab
 Route::get('/ciudades',[App\Http\Controllers\IndexController::class,'get_ciudades']);
 //crear hotel
 Route::post('/create_hotel',[App\Http\Controllers\IndexController::class,'create_hotel']);
+//buscar hoteles
+Route::get('/hotel',[App\Http\Controllers\IndexController::class,'get_hoteles']);
+
+Route::post('/guardar_h',[App\Http\Controllers\IndexController::class,'guardar_habitaciones']);
 
 

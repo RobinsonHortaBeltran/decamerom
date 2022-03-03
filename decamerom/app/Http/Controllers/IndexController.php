@@ -30,7 +30,7 @@ class IndexController extends Controller
 
     public function create_hotel(Request $request)
     {
-        // $result = hotel::firstOrCreate(array('nit' => $request->nit));
+        
         try {
             $verify = hotel::where('nombre', 'like', "%{$request->nombre}%")->orWhere('nit', 'like', "%{$request->nit}%")->exists();
            if ($verify) return response()->json('exist', 200);
@@ -53,5 +53,20 @@ class IndexController extends Controller
             return " Error: " . $e->getMessage();
         }
     }
+
+    public function get_hoteles()
+    {
+       
+        $hotel =  hotel::with('ciudad')->orderBy('id', 'ASC')->get();
+        try {
+            return response()->json($hotel, 200);
+        } catch (\Exception $e) {
+            return " Error: " . $e->getMessage();
+        }
+    }
     
+    public function guardar_habitaciones(Request $request)
+    {
+        return  $request;
+    }
 }
