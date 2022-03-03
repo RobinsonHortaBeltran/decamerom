@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 //peticion para traer todos tipos de habitaciones creadas
 Route::get('/habitaciones',[App\Http\Controllers\IndexController::class,'get_habitaciones']);
+//peticion para traer todas las ciudades creadas
+Route::get('/ciudades',[App\Http\Controllers\IndexController::class,'get_ciudades']);
+//crear hotel
+Route::post('/create_hotel',[App\Http\Controllers\IndexController::class,'create_hotel']);
+
+
