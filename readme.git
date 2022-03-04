@@ -1,0 +1,31 @@
+Para realizar el debido proceso de despliegue
+
+1- Crear el sever apuntando a la direccion localhos y su puerto por defecto
+   y la base de datos con el nombre decamerom2.
+2- Utilizar 0000 para la contraseña y postgres para el usuario que conecta a la bd
+3- Copiar el archivo .env.examplo y pegarlo nuevamente en la ruta principal del proyecto 
+   este ya contiene toda la configuracion de conexion
+4- Abrir la consola y ejecutar los siguientes comandos
+    4.1 php composer install si no lo tiene instalado, o en su defecto composer update para actualizar
+    4.2 php artisan migrate para realizar la creacion de las tablas que se requieren para el uso adecuado
+    y sus relaciones.
+    4.3 php artisan db:seed --class=ciudades para realizar el volcado de las ciudades en la base de datos
+    4.4 php artisan db:seed --class=acomodacion para realizar el volcado de los tipos de acomodacion existentes
+    4.5 php artisan optimize:clear para borrar cache de todo lo ejecutado.
+    4.6 php artisan serve para colocar a correr el proyecto en laravel y validar que el host donde este corriendo sea 
+    http://127.0.0.1:8000 ya que a este esta apuntando la api.
+5- yo recomiendo utilizar laragon si este se va a correr en un equipo local, porlo que la carpeta de adminlte que es la que 
+   contiene el frond hecho con html5 bootstrap y peticiones ajax con jquery, colocarlo en la carpeta www de laragon y colocar
+   a correr el localhost.
+6- realizar pruebas de listado de habitaciones,listado de hoteles creados, asignacion de habitaciones todo por medio de api.
+
+7- dejo el link de descarga de la base de datos en postgres por si quieren evitar correr tanto comando.
+    
+
+
+Agradecimientos,
+De antemano les agradezco la oportunidad de poder realizar esta prueba sea cual sea la desicion me llevo a comprender 
+muchas cosas en el ambito profesional y de desarrollo,espero poder ser parte de esta gran familia.
+
+Robinson Horta Beltran.
+
