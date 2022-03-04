@@ -106,7 +106,12 @@ function get_hoteles() {
             $('#listado_hotel tbody').empty();
 
             respuesta.forEach(e => {
-                var act = "<button title='Asignar habitaciones' data-id='" + e.num_habitaciones + "' data-toggle='modal' data-target='#myModal' class='btn btn-warning btn-sm asignar_h'><i class='fa fa-plus-square' aria-hidden='true'></i></button>";
+                if (e.num_habitaciones==0) {
+                    var act="No puede asignar";
+                }else{
+
+                    var act = "<button title='Asignar habitaciones' data-id='" + e.num_habitaciones +','+e.id+ "' data-toggle='modal' data-target='#myModal' class='btn btn-warning btn-sm asignar_h'><i class='fa fa-plus-square' aria-hidden='true'></i></button>";
+                }
                 var detalle = '<tr style="cursor:pointer;"> ' +
                     '<td style="text-align:center;"  >' + e.id + '</td>' +
                     '<td style="text-align:center;"  >' + e.nombre + '</td>' +
@@ -152,7 +157,10 @@ function get_habitaciones_select() {
 
 $(document).on("click", ".asignar_h", function () {
     var dato = $(this).data("id");
-    $("#h_disponibles").val(dato);
+    var explode= dato.split(",");
+    localStorage.clear();
+    localStorage.setItem('hotel_id',explode[1]);
+    $("#h_disponibles").val(explode[0]);
 });
 
 $(document).on("click", ".add_h", function () {
@@ -168,7 +176,8 @@ $(document).on("click", ".add_h", function () {
         var data = {
             cantidad: cantidad,
             acomo: acomodacion,
-            texto: textselector
+            texto: textselector,
+            hotel: localStorage.getItem('hotel_id')
         }
         habitaciones.push(data);
         sumall = habitaciones.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
@@ -195,8 +204,7 @@ $(document).on('click', '.delete_asignada', function (e) {
     var id = $(this).data("id");
     $(".habitaciones" + id).remove();
     sumall = sumall - habitaciones[id].cantidad;
-
-    // const index = habitaciones.indexOf(id);
+    // var index = habitaciones.indexOf(id);
     // if (index > -1) {
     //     habitaciones.splice(index, 1);
     // }
@@ -207,14 +215,13 @@ $(document).on('click', '.delete_asignada', function (e) {
 function guardar_asignacion() {
     
     var url = "http://127.0.0.1:8000/api/guardar_h";
-    var data = {
-        datos: habitaciones
-    }
+    
 
-    $.ajax({
+    habitaciones.forEach(element => {
+        $.ajax({
         url: url,
         method: "POST",
-        data: data,
+        data: element,
         datatype: "JSON",
         success: function (respuesta) {
             console.log(respuesta);
@@ -223,6 +230,9 @@ function guardar_asignacion() {
             console.log("No se ha podido obtener la información");
         }
     });
+    });
+    
+    location.reload();
 }
 
 function ejecutar_alerta(sms, icon) {

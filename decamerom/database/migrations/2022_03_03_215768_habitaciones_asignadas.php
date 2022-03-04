@@ -17,11 +17,10 @@ class HabitacionesAsignadas extends Migration
         Schema::create('habitaciones_asignadas', function (Blueprint $table) {
             $table->id();
             //crear la relacion con la tabla de ciudades
-            $table->unsignedBigInteger('hotel_id');
-            $table->foreign('hotel_id')->references('id')->on('hotel');
+            $table->string('hotel');
             $table->string('cantidad');
-            $table->unsignedBigInteger('acomodacion_id');
-            $table->foreign('acomodacion_id')->references('id')->on('acomodacion');
+            $table->string('tipo_habitacion');
+            $table->string('acomodacion');
             $table->enum('state',['activo','inactivo'])->default('activo');
             
             $table->timestamps();
